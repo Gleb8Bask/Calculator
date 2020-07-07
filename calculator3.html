@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Калькулятор 3</title>
+
+<script>	
+		
+function calc(){
+
+	var data = [{
+		height: "upto100",
+		payment: {
+			from1to30: 35,
+			from31to90: 30,
+			from91to180: 25,
+			from181: 23
+			}
+		},
+		{
+		height: "from100to200",
+		payment: {
+			from1to30: 40,
+			from31to90: 35,
+			from91to180: 30,
+			from181: 25
+			}
+		},
+		{
+		height: "from200",
+		payment: {
+			from1to30: 45,
+			from31to90: 40,
+			from91to180: 35,
+			from181: 30
+			}
+		}];
+
+	var heightCell = document.getElementById('height').value; 
+
+	const dataFiltered = data.filter(cell => cell.height == heightCell);   
+	
+	var days = parseFloat(document.getElementById('days').value);
+
+		if(days <= 30) {
+			var payment = dataFiltered[0].payment.from1to30;
+		}
+		else if(days >= 31 && days <=  90) {
+			var payment = dataFiltered[0].payment.from31to90;
+		}
+		else if(days >= 91 && days <= 180) {
+			var payment = dataFiltered[0].payment.from91to180;
+		}
+		else if(days >= 181) {
+			var payment = dataFiltered[0].payment.from181;
+		}
+
+	var mediumResult = days * payment;
+		
+	var n1 = 2000;
+	var n2 = 5000;
+	var n3 = 500;
+	var type = document.getElementById('type').value;
+
+		if(type === 'simpleRealty')
+		{
+			document.getElementById('result').value = mediumResult + n1;
+		}
+		if(type === 'complexRealty')
+		{
+			document.getElementById('result').value = mediumResult + n2;
+		}
+		if(type === 'auto')
+		{
+			document.getElementById('result').value = mediumResult + n3;
+		}	
+		if(type === 'other')
+		{
+			document.getElementById('result').value = mediumResult + n1;
+		}
+	
+}
+
+</script>
+
+</head>
+<body>
+	
+	<p>Выберите высоту ячейки:</p>
+	<select id="height">
+		<option value="upto100">до 100</option>
+		<option value="from100to200">от 100 до 200</option>
+		<option value="from200">от 200</option>
+	</select>
+
+	<p>Введите срок хранения, дней:</p>
+	<input type="text" id="days"/><br/><br/>
+
+	<p>Каков тип сделки:</p>
+	<select id="type">
+		<option value="simpleRealty">Простая сделка с недвижимостью</option>
+		<option value="complexRealty">Сложная сделка с недвижимостью</option>
+		<option value="auto">Сделка купли-продажи авто</option>
+		<option value="other">Другое</option>
+	</select><br/><br/>
+
+	<button onclick='calc()'>Рассчитать</button>
+	<br/><br/>
+	<input type="text" id="result"></div>
+
+</body>
+</html>
